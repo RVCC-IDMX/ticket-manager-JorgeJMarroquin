@@ -9,12 +9,11 @@ class TicketManager extends EventEmitter {
   buy(email, price) {
     if (this.supply > 0) {
       // eslint-disable-next-line no-plusplus
-      this.supply--;
+      this.supply -= 1;
       this.emit('buy', email, price, Date.now());
-      return;
+    } else {
+      this.emit('error', new Error('There are no more tickets left to purchase'));
     }
-
-    this.emit('error', new Error('There are no more tickets left to purchase'));
   }
 }
 
